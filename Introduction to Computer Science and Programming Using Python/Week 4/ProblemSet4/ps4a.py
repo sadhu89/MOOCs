@@ -77,6 +77,13 @@ def getWordScore(word, n):
     returns: int >= 0
     """
     # TO DO ... <-- Remove this comment when you code this function
+    s=0
+    for c in word:
+        s+= SCRABBLE_LETTER_VALUES[c]
+    s*=len(word)
+    if len(word)==n:
+        s+=50
+    return s
 
 
 
@@ -148,7 +155,10 @@ def updateHand(hand, word):
     returns: dictionary (string -> int)
     """
     # TO DO ... <-- Remove this comment when you code this function
-
+    nHand=dict(hand)
+    for c in word:
+        nHand[c]-=1
+    return nHand
 
 
 #
@@ -166,8 +176,13 @@ def isValidWord(word, hand, wordList):
     wordList: list of lowercase strings
     """
     # TO DO ... <-- Remove this comment when you code this function
-
-
+    nHand=hand.copy()
+    for c in word:
+        if not(c in hand.keys()) or nHand[c]<=0:
+            return False
+        nHand[c]-=1        
+        
+    return word in wordList 
 #
 # Problem #4: Playing a hand
 #
@@ -176,10 +191,15 @@ def calculateHandlen(hand):
     """ 
     Returns the length (number of letters) in the current hand.
     
-    hand: dictionary (string-> int)
+    hand: dictionary (string int)
     returns: integer
     """
     # TO DO... <-- Remove this comment when you code this function
+    s=0
+    for key in hand.keys():
+        s+=hand[key]
+    return s
+
 
 
 
@@ -205,36 +225,57 @@ def playHand(hand, wordList, n):
       n: integer (HAND_SIZE; i.e., hand size required for additional points)
       
     """
-    # BEGIN PSEUDOCODE <-- Remove this comment when you code this function; do your coding within the pseudocode (leaving those comments in-place!)
     # Keep track of the total score
+    totalScore=0
     
     # As long as there are still letters left in the hand:
+    while calculateHandlen(hand)>0:
     
         # Display the hand
+        print "Current Hand:",
+        displayHand(hand)
         
         # Ask user for input
+        word=str(raw_input('Enter word, or a "." to indicate that you are finished: '))
         
         # If the input is a single period:
+        if word==".":
         
             # End the game (break out of the loop)
+            break
 
             
         # Otherwise (the input is not a single period):
+        else:
         
             # If the word is not valid:
+            if not isValidWord(word, hand, wordList):
             
                 # Reject invalid word (print a message followed by a blank line)
+                print "Invalid word, please try again."
 
             # Otherwise (the word is valid):
+            else:
 
                 # Tell the user how many points the word earned, and the updated total score, in one line followed by a blank line
+                print '"'+word+'" earned '+str(getWordScore(word, n))+' points.',
+                totalScore+=getWordScore(word, n)
+                print ("Total: "+str(totalScore)+" points")
+
                 
                 # Update the hand 
+                hand=updateHand(hand, word)
                 
 
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
+    if word=="." or calculateHandlen(hand)==0:
+        print "Run out of letters.",
+    else:
+        print "Goodbye!"
+        
+    print "Total score: "+str(totalScore)+" points. "
 
-
+#
 #
 # Problem #5: Playing a game
 # 
@@ -242,17 +283,31 @@ def playHand(hand, wordList, n):
 def playGame(wordList):
     """
     Allow the user to play an arbitrary number of hands.
-
+ 
     1) Asks the user to input 'n' or 'r' or 'e'.
       * If the user inputs 'n', let the user play a new (random) hand.
       * If the user inputs 'r', let the user play the last hand again.
       * If the user inputs 'e', exit the game.
       * If the user inputs anything else, tell them their input was invalid.
  
-    2) When done playing the hand, repeat from step 1    
+    2) When done playing the hand, repeat from step 1
     """
     # TO DO ... <-- Remove this comment when you code this function
-    print "playGame not yet implemented." # <-- Remove this line when you code the function
+    entrada=str(raw_input("Enter n to deal a new hand, r to replay the last hand, or e to end game:"))
+    hand=None
+    while(entrada!="e"):
+    
+        if entrada=="n":
+            hand=dealHand(HAND_SIZE)
+            playHand(hand, wordList, HAND_SIZE)
+        elif entrada=="r":
+            if hand==None:
+                print "You have not played a hand yet. Please play a new hand first!"
+            else:
+                playHand(hand, wordList, HAND_SIZE)
+        else:
+            print "Invalid word, please try again."
+        entrada=str(raw_input("Enter n to deal a new hand, r to replay the last hand, or e to end game:"))
    
 
 
