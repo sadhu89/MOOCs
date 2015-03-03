@@ -48,7 +48,7 @@ def process(url):
 
 # TODO: NewsStory
 # Enter your code for NewsStory in this box
-class NewsStory(Object):
+class NewsStory(object):
     def __init__(self,guid, title, subject, summary, link):
         self.guid=guid
         self.title=title
@@ -85,25 +85,80 @@ class Trigger(object):
 # Problems 2-5
 
 # TODO: WordTrigger
+class WordTrigger(Trigger):
+    def __init__(self,word):
+        self.word=word
+    def isWordIn(self, text):
+        ns=convertir(text)
+        return self.word.lower() in ns.split(" ")
+
+def convertir(text):
+    text=text.lower()
+    ns=""
+    for l in text:
+        if l in string.punctuation:
+            ns+=" "
+        else:
+            ns+=l
+    return ns
 
 # TODO: TitleTrigger
-# TODO: SubjectTrigger
-# TODO: SummaryTrigger
+class TitleTrigger(WordTrigger):
+        
+    def evaluate(self, story):
+        return self.isWordIn(story.getTitle())
+        
 
+# TODO: SubjectTrigger
+class SubjectTrigger(WordTrigger):
+        
+    def evaluate(self, story):
+        return self.isWordIn(story.getSubject())
+# TODO: SummaryTrigger
+class SummaryTrigger(WordTrigger):
+        
+    def evaluate(self, story):
+        return self.isWordIn(story.getSummary())
 
 # Composite Triggers
 # Problems 6-8
 
 # TODO: NotTrigger
+class NotTrigger(Trigger):
+    def __init__(self, T):
+        self.T=T
+    def evaluate(self,story):
+        return not self.T.evaluate(story)
+        
 # TODO: AndTrigger
+class AndTrigger(Trigger):
+    def __init__(self, T,U):
+        self.T=T
+        self.U=U
+    def evaluate(self,story):
+        return self.T.evaluate(story) and self.U.evaluate(story)
 # TODO: OrTrigger
+class OrTrigger(Trigger):
+    def __init__(self, T,U):
+        self.T=T
+        self.U=U
+    def evaluate(self,story):
+        return self.T.evaluate(story) or self.U.evaluate(story)
 
 
 # Phrase Trigger
 # Question 9
 
 # TODO: PhraseTrigger
-
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        self.phrase=phrase
+    
+    def evaluate(self, story):
+        return self.phrase in story.getSubject() or self.phrase in story.getTitle() or self.phrase in story.getSummary()
+        
+        
+        
 
 #======================
 # Part 3
