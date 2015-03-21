@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pagina Personal</title>
+	<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+	<h1>Tiburcio Chuquipiondo</h1>
+
+	<h2>Experriencia Laboral:</h2>
+	<ul>
+		<li>Software Engineer at Google 2014-2015</li>
+		<li>Software Development Intern at Facebook 2013-2014</li>
+	</ul>
+
+	<img id="tibu" src="tiburcio.jpg" alt="">
+
+
+	<h2>Recursos: </h2>
+	<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/3118053&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+	<video width="320" height="240" controls>
+	  <source src="http://www.w3schools.com/tags/movie.mp4" type="video/mp4">
+	  <source src="http://www.w3schools.com/tags/movie.ogg" type="video/ogg">
+	  Your browser does not support the video tag.
+	</video>
+
+	<script>
+	var alto=prompt('Altura de la pared en metros');
+	var ancho=prompt('Ancho de la pared en metros');
+
+	if(alto==null||ancho==null)
+		document.writeln("<p>Faltan Datos</p>");
+	else{
+		document.writeln("<p>Superficie de la pared: ");
+		document.writeln(alto*ancho+"</p>");
+	}
+
+	</script>
+
+</body>
+</html>
