@@ -173,7 +173,14 @@ def filterStories(stories, triggerlist):
     """
     # TODO: Problem 10
     # This is a placeholder (we're just returning all the stories, with no filtering) 
-    return stories
+    new_stories=[]
+    for story in stories:
+        for trigger in triggerlist:
+            if trigger.evaluate(story):
+                new_stories.append(story)
+                break
+    
+    return new_stories
 
 #======================
 # Part 4
@@ -196,6 +203,26 @@ def makeTrigger(triggerMap, triggerType, params, name):
     Returns a new instance of a trigger (ex: TitleTrigger, AndTrigger).
     """
     # TODO: Problem 11
+    if triggerType=="TITLE":
+        t=TitleTrigger(params[0])
+    elif triggerType=="SUBJECT":
+        t=SubjectTrigger(params[0])
+    elif triggerType=="SUMMARY":
+        t=SummaryTrigger(params[0])
+    elif triggerType=="NOT":
+        t=NotTrigger(triggerMap[params[0]])
+    elif triggerType=="AND":
+        t=AndTrigger(triggerMap[params[0]],triggerMap[params[1]])
+    elif triggerType=="OR":
+        t=OrTrigger(triggerMap[params[0]],triggerMap[params[1]])
+    elif triggerType=="PHRASE":
+        t=PhraseTrigger(" ".join([p for p in params]))
+    
+    triggerMap[name]=t
+    return t
+        
+        
+    
 
 
 def readTriggerConfig(filename):
@@ -255,7 +282,7 @@ def main_thread(master):
         
         # TODO: Problem 11
         # After implementing makeTrigger, uncomment the line below:
-        # triggerlist = readTriggerConfig("triggers.txt")
+        triggerlist = readTriggerConfig("C:\Users\crojas\Documents\GitHub\MOOCs\Introduction to Computer Science and Programming Using Python\Week 7\code_ProblemSet7\ProblemSet7\triggers.txt")
 
         # **** from here down is about drawing ****
         frame = Frame(master)
