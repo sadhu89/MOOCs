@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Herencia</title>
+	<style>
+		.prueba{
+			color: blue; <!--0010-->
+		}
+
+		#caja header #prueba{
+			color: green; <!--0201-->
+		}
+
+		#caja .cabecera #prueba{
+			color:red; <!--0210-->
+		}
+
+	</style>
+</head>
+<body>
+	<div id="caja">
+		<header class="cabecera">
+			<h1 id="prueba">Cabecera: header</h1>
+		</header>
+	</div>
+</body>
+</html>

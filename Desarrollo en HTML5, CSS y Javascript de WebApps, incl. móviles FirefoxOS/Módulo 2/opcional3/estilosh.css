@@ -1,0 +1,27 @@
+ul{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	border: 1px;
+	border-style: solid;
+	border-color: yellow;
+
+}
+
+a{
+	text-decoration: none;
+	color:red;
+	display:block;
+	border: 1px;
+	border-style: solid;
+	border-color: black;
+	float:left;
+	padding: 6px;
+}
+
+a:hover{
+	color:green;
+	background-color: blue;
+	border: 1px;
+	border-style: solid
+}

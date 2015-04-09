@@ -1,0 +1,58 @@
+body, html {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+#main {
+   height: 80%;
+   display: -webkit-flex;
+   display:         flex;
+   flex-flow: row;
+}
+
+#submain {
+   height: 100%;
+   display: -webkit-flex;
+   display:         flex;
+   flex-flow: column;
+}
+
+#main>section {
+	background: #CFC;
+	flex: 3 1 60%;
+	order: 2;
+}
+#main nav {
+	background: #CCF;
+	flex: 1 6 20%;
+	order: 1;
+}
+#main aside {
+	background: #CCF;
+	flex: 1 6 20%;
+	order: 3;
+}
+header, footer {
+	display: block;
+	min-height: 10%;
+	background: #FC6;
+}
+
+#submain header {
+	background: blue;
+	flex: 3 1 20%;
+	order: 1;
+}
+#submain article {
+	background: red;
+	flex: 1 6 60%;
+	order: 2;
+}
+#submain footer {
+	background: blue;
+	flex: 1 6 20%;
+	order: 3;
+}
+
+
